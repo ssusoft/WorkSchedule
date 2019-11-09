@@ -1,7 +1,7 @@
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
-const md = require('/tmp/guest-aqxqyw/Desktop/WorkSchedule-master/scheduler/lib/template.js');
+const md = require('/tmp/guest-aqxqyw/Desktop/WorkSchedule-master/afterRefactoring/lib/template.js');
 
 var app = http.createServer(function(request, response){
     var _url = request.url;
@@ -10,17 +10,10 @@ var app = http.createServer(function(request, response){
 
     if(pathname === '/'){
         if(queryData.id === undefined){
-            fs.readdir('./data', function(error, filelist){
-                var header = '<h1>메인 메뉴</h1>';
-                var body = '<ul>';
-                for(var i=0; i<filelist.length; ++i){
-                    body += `<li><a href="/${filelist[i]}">${filelist[i]}</a></li>`;
-                }
-                body += '</ul>';
-                var html = md.basic(header, body);
+                var menu = md.menu();
+                var html = md.frame("<meta charset='utf-8'>", menu);
                 response.writeHead(200);
                 response.end(html);
-            });
         }
         else{
             console.log("1.미완성");
@@ -28,8 +21,17 @@ var app = http.createServer(function(request, response){
     }
     else if(pathname === '/gate'){ // 위병소
         console.log('pathname === /gate');
+        var html = md.frame(`
+            <meta charset='utf-8'>
+            <style>
+                .container{display:table;}
+                .row{display:table-row;}
+                .cell{display:table-cell; width:20%; text-align:center; border-width:1px; border-style:solid; border-color:black;}
+            </style>`,
+            md.menu() + md.gate('./json/unit.json'));
+
         response.writeHead(200);
-        response.end(md.gate('./data/unit.json'));
+        response.end(html);
     }
     else if(pathname === '/nightMove'){ // 동초
         console.log('pathname === /nightMove');

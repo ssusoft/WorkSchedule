@@ -4,16 +4,6 @@ module.exports={
     gate : function(jsonFile){
         console.log("template.gate");
         var write = `
-            <!DOCTYPE html>
-                <html lang='ko'>
-                <meta charset="UTF-8">
-                <head>
-                    <style>
-                    .container{display:table;}
-                    .row{display:table-row;}
-                    .cell{display:table-cell;}
-                </head>
-                <body>
                     <div class='container'>
                         <div class='row'>
                             <div class='cell'>
@@ -28,41 +18,53 @@ module.exports={
                         </div>
             `;
         var content = fs.readFileSync(jsonFile, 'utf8');
-        var jsonContent = JSON.stringify(content);
-        for(var exKey in jsonContent){
-            if(exKey === "platoon_1"){
-                write += "<div class='row'>div class='cell'><h5>1</h5></div>";
-                write += `<div class='cell'><h5>${jsonContent[exKey].name}</h5></div>`;
-                write += `<div class='cell'><h5>${jsonContent[exKey].job}</h5></div>`;                
+        var jsonContent = JSON.parse(content);
+        for(var key in jsonContent){
+            for(var index = 0; index < jsonContent[key].length; ++index){
+                if(key === "platoon_1"){
+                    write += "<div class='row'><div class='cell'><h5>1</h5></div>";
+                    write += `<div class='cell'><h5>${jsonContent[key][index].name}</h5></div>`;
+                    write += `<div class='cell'><h5>${jsonContent[key][index].job}</h5></div>`;
+                }
+                else if(key === "platoon_2"){
+                    write += "<div class='row'><div class='cell'><h5>2</h5></div>";
+                    write += `<div class='cell'><h5>${jsonContent[key][index].name}</h5></div>`;
+                    write += `<div class='cell'><h5>${jsonContent[key][index].job}</h5></div>`;
+                }
+                else if(key === "platoon_3"){
+                    write += "<div class='row'><div class='cell'><h5>3</h5></div>";
+                    write += `<div class='cell'><h5>${jsonContent[key][index].name}</h5></div>`;
+                    write += `<div class='cell'><h5>${jsonContent[key][index].job}</h5></div>`;
+                }
+                write += `</div>`;
             }
-            else if(exKey === "platoon_2"){
-                write += "<div class='row'>div class='cell'><h5>2</h5></div>";
-                write += `<div class='cell'><h5>${jsonContent[exKey].name}</h5></div>`;
-                write += `<div class='cell'><h5>${jsonContent[exKey].job}</h5></div>`; 
-            }
-            else if(exKey === "platoon_3"){
-                write += "<div class='row'>div class='cell'><h5>3</h5></div>";
-                write += `<div class='cell'><h5>${jsonContent[exKey].name}</h5></div>`;
-                write += `<div class='cell'><h5>${jsonContent[exKey].job}</h5></div>`; 
-            }
-            write += `</div>`;
         }
-        write += "</div></body></html>";
+        write += "</div>";
         return write;
     },
 
-    basic : function(header, body){
+    frame : function(head, body){
         return `
             <!DOCTYPE html>
             <html>
                 <head>
-                    <meta charset="utf-8">
+                    ${head}
                 </head>
                 <body>
-                    ${header}
                     ${body}
                 </body>
             </html>
         `;
+    },
+
+    menu : function(){
+        var filelist = fs.readdirSync('./data'); 
+        var header = '<h1>메인 메뉴</h1>';
+        var body = '<ul>';
+        for(var i=0; i<filelist.length; ++i){
+            body += `<li><a href="/${filelist[i]}">${filelist[i]}</a></li>`;
+        }
+        body += '</ul>';
+        return header + body;
     }
 }
