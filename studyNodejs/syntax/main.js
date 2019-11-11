@@ -100,6 +100,7 @@ var app = http.createServer(function(request, response){
           body += data;
         })
         request.on('end', function(){
+          console.log(body);
           var post = qs.parse(body);
           var id= post.id;
           var title = post.title;
