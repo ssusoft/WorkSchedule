@@ -26,18 +26,18 @@ module.exports={
                 for(var index = 0; index < jsonContent[key].length; ++index){
                     if(key === "platoon_1"){
                         write += "<div class='row'><div class='cell'><h5>1</h5></div>";
-                        write += `<div class='cell'><p contenteditable="true">${jsonContent[key][index].name}</p></div>`;
-                        write += `<div class='cell'><p contenteditable="true">${jsonContent[key][index].job}</p></div>`;
+                        write += `<div class='cell'><input type="text" value=${jsonContent[key][index].name}></div>`;
+                        write += `<div class='cell'><input type="text" value=${jsonContent[key][index].job}></div>`;
                     }
                     else if(key === "platoon_2"){
                         write += "<div class='row'><div class='cell'><h5>2</h5></div>";
-                        write += `<div class='cell'><p contenteditable="true">${jsonContent[key][index].name}</p></div>`;
-                        write += `<div class='cell'><p contenteditable="true">${jsonContent[key][index].job}</p></div>`;
+                        write += `<div class='cell'><input type="text" value=${jsonContent[key][index].name}></div>`;
+                        write += `<div class='cell'><input type="text" value=${jsonContent[key][index].job}></div>`;
                     }
                     else if(key === "platoon_3"){
                         write += "<div class='row'><div class='cell'><h5>3</h5></div>";
-                        write += `<div class='cell'><p contenteditable="true">${jsonContent[key][index].name}</p></div>`;
-                        write += `<div class='cell'><p contenteditable="true">${jsonContent[key][index].job}</p></div>`;
+                        write += `<div class='cell'><input type="text" value=${jsonContent[key][index].name}></div>`;
+                        write += `<div class='cell'><input type="text" value=${jsonContent[key][index].job}></div>`;
                     }
                     write += '</div>';
                 }

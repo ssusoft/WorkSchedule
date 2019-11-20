@@ -2,7 +2,7 @@ var http = require('http');
 var url = require('url');
 var fs = require('fs');
 var qs = require('querystring');
-const md = require('/tmp/guest-irucjq/Desktop/workSchedule-master/afterRefactoring/lib/template.js');
+const md = require('/tmp/guest-fyrgjq/Desktop/workSchedule-master/afterRefactoring/lib/template.js');
 
 var app = http.createServer(function(request, response){
     var _url = request.url;
@@ -58,25 +58,15 @@ var app = http.createServer(function(request, response){
         response.end(html);
     }
     else if(pathname === '/update_process'){
+        console.log("pathname === '/update_process'");
         var body = '';
         request.on('data', function(data){
-          body += data;
+            // 데이터가 없음. 어떻게 넘기냐..
+            body += data;
         })
         request.on('end', function(){
-          var post = qs.parse(body);
-          var id= post.id;
-          var title = post.title;
-          var description = post.description;
-          console.log(post);
-          /*
-          fs.rename(`data/${id}`, `data/${title}`, function(err){
-            fs.writeFile(`data/${title}`, description, 'utf8', function(err){
-              response.writeHead(302, {Location: `/?id=${title}`});
-              response.end();
-            })
-          })
-          */
+
         })
-      }
+    }
 });
 app.listen(3000);
